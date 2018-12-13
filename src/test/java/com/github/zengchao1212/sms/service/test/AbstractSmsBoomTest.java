@@ -1,20 +1,14 @@
 package com.github.zengchao1212.sms.service.test;
 
-import com.github.zengchao1212.sms.service.ChinaMobile;
-import org.junit.Test;
-
+import com.github.zengchao1212.sms.service.SmsBoom;
 
 /**
  * @author zengchao
- * @date 2018/12/12
+ * @date 2018/12/13
  */
-public class ChinaMobileTest {
-    private ChinaMobile sender=new ChinaMobile();
-
-    @Test
-    public void send() throws InterruptedException {
+public abstract class AbstractSmsBoomTest {
+    protected void send(SmsBoom sender,String mobile) throws InterruptedException {
         int i=0;
-        String mobile="15297804323";
         while (true){
             boolean success=sender.send(mobile);
             if(!success){

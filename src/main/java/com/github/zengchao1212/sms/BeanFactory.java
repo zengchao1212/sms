@@ -25,6 +25,12 @@ public class BeanFactory {
                     if(!httpRequest.containsHeader(HttpHeaders.REFERER)){
                         httpRequest.addHeader(HttpHeaders.REFERER,host.toString());
                     }
+                    if(!httpRequest.containsHeader("Content-Type-X")){
+                        httpRequest.addHeader(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded; charset=UTF-8");
+                    }else {
+                        httpRequest.addHeader(HttpHeaders.CONTENT_TYPE,httpRequest.getFirstHeader("Content-Type-X").getValue());
+                        httpRequest.removeHeaders("Content-Type-X");
+                    }
                     System.out.println("-----------request header--------------");
                     System.out.println(host.toString()+httpRequest.getRequestLine().getUri());
                     for(Header header:httpRequest.getAllHeaders()){

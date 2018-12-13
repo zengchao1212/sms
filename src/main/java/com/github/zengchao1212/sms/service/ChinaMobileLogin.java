@@ -1,12 +1,7 @@
 package com.github.zengchao1212.sms.service;
 
-import com.github.zengchao1212.sms.BeanFactory;
-import com.github.zengchao1212.sms.service.response.handler.DefaultResponseHandler;
-import com.github.zengchao1212.sms.service.response.handler.VoidResponseHandler;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -16,13 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 一分钟一次，一天四次
  * @author zengchao
  * @date 2018/12/12
  */
-public class ChinaMobile implements SmsBoom{
-    private HttpClient client= BeanFactory.getHttpClient();
-    private Gson gson=BeanFactory.getGson();
-    private final DefaultResponseHandler responseHandler=new DefaultResponseHandler();
+public class ChinaMobileLogin implements SmsBoom{
+
 
     private void sendFlag() throws IOException {
         HttpGet req=new HttpGet("https://login.10086.cn/sendflag.htm?timestamp="+System.currentTimeMillis());
@@ -32,7 +26,6 @@ public class ChinaMobile implements SmsBoom{
     private String loadToken(String mobile) throws IOException {
         sendFlag();
         HttpPost req=new HttpPost("https://login.10086.cn/loadToken.action");
-        req.setHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
         HttpEntity httpEntity=new StringEntity(String.format("userName=%s",mobile));
         req.setEntity(httpEntity);
         String content=client.execute(req,responseHandler);
@@ -53,8 +46,6 @@ public class ChinaMobile implements SmsBoom{
         errorCodeMap.put("6","发送短信验证码失败,请检查!");
         errorCodeMap.put("4005","手机号码有误，请重新输入!");
         HttpPost req=new HttpPost("https://login.10086.cn/sendRandomCodeAction.action");
-        req.addHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-        req.addHeader("X-Requested-With","XMLHttpRequest");
         req.addHeader("Xa-before",loadToken(mobile));
         HttpEntity httpEntity=new StringEntity(String.format("userName=%s&type=01&channelID=12003",mobile));
         req.setEntity(httpEntity);
