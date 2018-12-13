@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class ChinaMobileLogin implements SmsBoom{
     private String loadToken(String mobile) throws IOException {
         sendFlag();
         HttpPost req=new HttpPost("https://login.10086.cn/loadToken.action");
-        HttpEntity httpEntity=new StringEntity(String.format("userName=%s",mobile));
+        HttpEntity httpEntity = new StringEntity(String.format("userName=%s", mobile), ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
         req.setEntity(httpEntity);
         String content=client.execute(req,responseHandler);
         JsonObject jsonObject=gson.fromJson(content, JsonObject.class);
@@ -47,7 +48,7 @@ public class ChinaMobileLogin implements SmsBoom{
         errorCodeMap.put("4005","手机号码有误，请重新输入!");
         HttpPost req=new HttpPost("https://login.10086.cn/sendRandomCodeAction.action");
         req.addHeader("Xa-before",loadToken(mobile));
-        HttpEntity httpEntity=new StringEntity(String.format("userName=%s&type=01&channelID=12003",mobile));
+        HttpEntity httpEntity = new StringEntity(String.format("userName=%s&type=01&channelID=12003", mobile), ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
         req.setEntity(httpEntity);
         String res=client.execute(req,responseHandler);
         if(!res.equals("0")){

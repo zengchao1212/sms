@@ -3,6 +3,7 @@ package com.github.zengchao1212.sms.service;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.jsoup.Jsoup;
 
@@ -21,7 +22,8 @@ public class AbcRegister implements SmsBoom {
         init();
         HttpPost req=new HttpPost("https://perbank.abchina.com/EbankSite/SendSmsVerifyCodeAct.ebf");
         req.setHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-        HttpEntity httpEntity = new StringEntity(String.format("mobileNoField=mobile&sendType=sgsrfdx008&mobile=%s",mobile));
+        HttpEntity httpEntity = new StringEntity(String.format("mobileNoField=mobile&sendType=sgsrfdx008&mobile=%s", mobile),
+                ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
         req.setEntity(httpEntity);
         String res=client.execute(req,responseHandler);
         String htmlTitle;
