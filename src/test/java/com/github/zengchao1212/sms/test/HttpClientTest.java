@@ -2,11 +2,8 @@ package com.github.zengchao1212.sms.test;
 
 import com.github.zengchao1212.sms.BeanFactory;
 import com.github.zengchao1212.sms.service.response.handler.DefaultResponseHandler;
-import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.junit.After;
+import org.apache.http.client.methods.HttpGet;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,27 +15,16 @@ import java.io.IOException;
 public class HttpClientTest {
     private HttpClient client= BeanFactory.getHttpClient();
 
-    @After
-    public void stop() throws InterruptedException {
-        Thread.sleep(3000);
-    }
-
     @Test
     public void t1() throws IOException {
-        HttpPost req=new HttpPost("https://login.10086.cn/sendRandomCodeAction.action");
-        req.setHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
-        req.setHeader("X-Requested-With","XMLHttpRequest");
-        req.setHeader("Cookie","sendflag=20181213125719157747");
-        req.setHeader("Xa-before","08995602622720652693118540497249");
-        HttpEntity httpEntity=new StringEntity("userName=18218027494&type=01&channelID=12003");
-        req.setEntity(httpEntity);
+//        HttpGet req=new HttpGet("https://epass.icbc.com.cn/resetpwd/reset_pwd_index.jsp?StructCode=1&encryptedData=w9A3onPU54b7Lq9Du2GSCLs8Fpe9sVkrmFZHbpyAf74JsR6gEJL8ONaW1btfSEuQ7VZKRFqR6osRRr2cbm2XcEMBgjny0OOiSRhxSFBbuxRRV4vtmX9Yx%2BvmAeqXB3ovaUh/pe9zulPVlFtx%2BqoR2czSnlcpqSHdRjGz8UaOW69r/70YBfOn0CPyVMaYcOVAd7cJbWx%2B8g3OZYYLzkofLo38v%2BXI3qG3r4O%2Bc9yj1bKDJiYeNRGV4ZdGCnHhsu0hgM/rhHRe25tWjjXXXKLThYhH%2BEtyjlovZTaRIN0Q9S1u1PoqEX3b2D2WC%2BsWOUBoVOHtTIT66nR6zjghWDRUBRaOWgCymHBey9LxoZBQHt4fPxPpejeFNJpHaU7VDkggWQD7PZqclCfbVho7WFutMqxxDNt5wgEpw8Cz7ssPCDk=%2B");
+        HttpGet req = new HttpGet("http://4jt4ex.natappfree.cc//flash/controller/Test/xxx");
         String res=client.execute(req,new DefaultResponseHandler());
         System.out.println(res);
     }
 
     @Test
-    public void common(){
-        String s="userName=18218027494&type=01&channelID=12034";
-        System.out.println(s.length());
+    public void common() throws IOException {
     }
+
 }

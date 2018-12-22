@@ -3,6 +3,7 @@ package com.github.zengchao1212.sms;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.*;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -40,9 +41,12 @@ public class BeanFactory {
                 })
                 .setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36")
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+//                .setProxy(new HttpHost("163.172.129.145",8118))
+                .setMaxConnPerRoute(1)
+                .setDefaultRequestConfig(RequestConfig.custom().setSocketTimeout(4000).setConnectTimeout(4000).build())
                 .build();
 
-        gson=new GsonBuilder().create();
+        gson = new GsonBuilder().disableHtmlEscaping().create();
     }
 
     public static CloseableHttpClient getHttpClient(){
