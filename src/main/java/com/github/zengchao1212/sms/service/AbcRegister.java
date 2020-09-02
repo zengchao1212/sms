@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author zengchao
  * @date 2018/12/13
  */
-public class AbcRegister implements SmsBoom {
+public class AbcRegister extends AbstractSmsBoom {
     private void init() throws IOException {
         HttpGet req=new HttpGet("https://perbank.abchina.com/EbankSite/SelfHelpRegisterInitAct.do");
         client.execute(req,responseHandler);

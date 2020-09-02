@@ -16,7 +16,7 @@ import java.util.Map;
  * @author zengchao
  * @date 2018/12/12
  */
-public class ChinaMobileLogin implements SmsBoom{
+public class ChinaMobileLogin extends AbstractSmsBoom {
 
 
     private void sendFlag() throws IOException {

@@ -2,7 +2,8 @@ package com.github.zengchao1212.sms;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.http.*;
+import org.apache.http.HttpRequestInterceptor;
+import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -19,19 +20,19 @@ public class BeanFactory {
     static {
         httpClient= HttpClientBuilder.create()
                 .addInterceptorLast((HttpRequestInterceptor) (httpRequest, httpContext) -> {
-                    HttpHost host= (HttpHost) httpContext.getAttribute("http.target_host");
-                    if(!httpRequest.containsHeader("Origin")){
-                        httpRequest.addHeader("Origin",host.toString());
-                    }
-                    if(!httpRequest.containsHeader(HttpHeaders.REFERER)){
-                        httpRequest.addHeader(HttpHeaders.REFERER,host.toString());
-                    }
-                    System.out.println("-----------request header--------------");
-                    System.out.println(host.toString()+httpRequest.getRequestLine().getUri());
-                    for(Header header:httpRequest.getAllHeaders()){
-                        System.out.println(header.toString());
-                    }
-                    System.out.println("-----------request header--------------");
+//                    HttpHost host= (HttpHost) httpContext.getAttribute("http.target_host");
+//                    if(!httpRequest.containsHeader("Origin")){
+//                        httpRequest.addHeader("Origin",host.toString());
+//                    }
+//                    if(!httpRequest.containsHeader(HttpHeaders.REFERER)){
+//                        httpRequest.addHeader(HttpHeaders.REFERER,host.toString());
+//                    }
+//                    System.out.println("-----------request header--------------");
+//                    System.out.println(host.toString()+httpRequest.getRequestLine().getUri());
+//                    for(Header header:httpRequest.getAllHeaders()){
+//                        System.out.println(header.toString());
+//                    }
+//                    System.out.println("-----------request header--------------");
                 }).addInterceptorLast((HttpResponseInterceptor) (httpResponse, httpContext) -> {
 //                    System.out.println("-----------response header--------------");
 //                    for(Header header:httpResponse.getAllHeaders()){
@@ -45,7 +46,6 @@ public class BeanFactory {
                 .setMaxConnPerRoute(1)
                 .setDefaultRequestConfig(RequestConfig.custom().setSocketTimeout(4000).setConnectTimeout(4000).build())
                 .build();
-
         gson = new GsonBuilder().disableHtmlEscaping().create();
     }
 

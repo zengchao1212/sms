@@ -10,13 +10,15 @@ import java.io.IOException;
  * @author zengchao
  * @date 2018/12/14
  */
-public class BaiduLogin implements SmsBoom {
+public class BaiduLogin extends AbstractSmsBoom {
 
     private String callbackFunction = "bd__cbs__cexqg5";
 
     private void loadCookies() throws IOException {
-        HttpGet req = new HttpGet("https://passport.baidu.com/v2/?login");
+        HttpGet req = new HttpGet("https://www.baidu.com/");
         client.execute(req, responseHandler);
+//        req = new HttpGet("https://passport.baidu.com/v2/?login");
+//        client.execute(req, responseHandler);
     }
 
     private String getGID() {

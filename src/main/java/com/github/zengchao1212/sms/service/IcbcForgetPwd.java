@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * @author zengchao
  * @date 2018/12/13
  */
-public class IcbcForgetPwd implements SmsBoom {
+public class IcbcForgetPwd extends AbstractSmsBoom {
     Pattern p1 = Pattern.compile("sendParam\\s*\\[\"tranFlag\"\\]\\s*=\\s*\"(.*)\"");
     Pattern p2 = Pattern.compile("sendParam\\s*\\[\"SessionId\"\\]\\s*=\\s*\"(.*)\"");
     Pattern p3 = Pattern.compile("sendParam\\s*\\[\"tranCode\"\\]\\s*=\\s*\"(.*)\"");
